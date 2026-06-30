@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expogame 2026 · Hitos y Cronograma</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0e1a; --bg2:#14162a; --bg3:#1c1f3a; --card:#191c33; --card2:#20243f;
+  --border:#2c3056; --border2:#3a3f6b;
+  --text:#eef0ff; --text2:#b8bce0; --dim:#7c80ae;
+  --purple:#8B3FFF; --purple2:#a96bff; --cyan:#00E6F6; --cyan2:#4ff0ff;
+  --red:#ff4d6d; --red-bg:#2a1424; --amber:#ffb13d; --amber-bg:#2a2114; --green:#3dffaf; --green-bg:#13291f;
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
+  background-image:radial-gradient(circle at 15% 0%,rgba(139,63,255,.12),transparent 40%),radial-gradient(circle at 85% 10%,rgba(0,230,246,.08),transparent 40%);
+  background-attachment:fixed;}
+ 
+/* HEADER */
+.header{background:rgba(13,14,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1400px;margin:0 auto;padding:16px 5vw;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:26px;letter-spacing:.02em;background:linear-gradient(135deg,var(--purple2),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand-sub{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);border-left:1px solid var(--border2);padding-left:14px}
+.sync{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sync-status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.sync-dot.loading{background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 1s infinite}
+.sync-dot.error{background:var(--red);box-shadow:0 0 8px var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.refresh-btn{font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:13px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;border:none;padding:9px 18px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:transform .15s,box-shadow .15s}
+.refresh-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(139,63,255,.4)}
+.refresh-btn:disabled{opacity:.5;cursor:wait}
+.refresh-btn svg{transition:transform .5s}
+.refresh-btn:disabled svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+ 
+/* HERO */
+.hero{max-width:1400px;margin:0 auto;padding:30px 5vw 0;display:flex;gap:24px;align-items:stretch;flex-wrap:wrap}
+.countdown{background:linear-gradient(135deg,rgba(139,63,255,.18),rgba(0,230,246,.1));border:1px solid var(--border2);border-radius:var(--r);padding:22px 30px;display:flex;flex-direction:column;justify-content:center;min-width:200px;flex:0 0 auto}
+.countdown-num{font-family:'Rajdhani',sans-serif;font-size:54px;font-weight:700;line-height:1;color:var(--cyan);text-shadow:0 0 20px rgba(0,230,246,.4)}
+.countdown-label{font-size:13px;color:var(--text2);margin-top:4px}
+.countdown-date{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--purple2);margin-top:8px}
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;flex:1;min-width:280px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;justify-content:center}
+.stat .v{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;line-height:1}
+.stat .l{font-size:12px;color:var(--dim);margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.stat.total .v{color:var(--text)} .stat.bad .v{color:var(--red)} .stat.warn .v{color:var(--amber)} .stat.ok .v{color:var(--green)}
+.stat.bad{cursor:pointer} .stat.warn{cursor:pointer}
+.stat.bad:hover,.stat.warn:hover{border-color:var(--border2)}
+ 
+/* CONTROLS */
+.controls{max-width:1400px;margin:0 auto;padding:26px 5vw 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.view-toggle{display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:3px;gap:2px}
+.view-btn{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:none;border:none;color:var(--dim);padding:8px 18px;border-radius:7px;cursor:pointer;transition:all .15s}
+.view-btn.active{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff}
+.search-box{flex:1;min-width:200px;position:relative}
+.search-box input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:11px 16px 11px 40px;color:var(--text);font-family:'Barlow';font-size:14px;outline:none;transition:border-color .15s}
+.search-box input:focus{border-color:var(--purple)}
+.search-box svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--dim)}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;letter-spacing:.03em;text-transform:uppercase;background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:8px 15px;border-radius:8px;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--border2)}
+.chip.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.chip.active[data-filter="vencido"]{background:var(--red);border-color:var(--red)}
+.chip.active[data-filter="proximo"]{background:var(--amber);border-color:var(--amber);color:#1a1a1a}
+ 
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:24px 5vw 80px}
+ 
+/* CHRONO VIEW (lista por fecha) */
+.chrono-month{margin-bottom:30px}
+.chrono-month-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;position:sticky;top:74px;background:rgba(13,14,26,.92);backdrop-filter:blur(8px);padding:10px 0;z-index:10}
+.chrono-month-head h2{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.chrono-month-head .pill{font-size:12px;color:var(--dim);background:var(--bg3);padding:4px 12px;border-radius:20px;border:1px solid var(--border)}
+.chrono-month-head.is-current h2{color:var(--cyan)}
+.chrono-month-head .line{flex:1;height:1px;background:var(--border)}
+.chrono-row{display:flex;align-items:flex-start;gap:0;background:var(--card);border:1px solid var(--border);border-radius:11px;margin-bottom:8px;overflow:hidden;transition:border-color .15s,transform .15s}
+.chrono-row:hover{border-color:var(--border2);transform:translateX(2px)}
+.chrono-date{flex:0 0 92px;padding:14px 12px;text-align:center;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg3)}
+.chrono-date .day{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1}
+.chrono-date .mon{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-top:2px}
+.chrono-date.s-vencido{background:var(--red-bg)} .chrono-date.s-vencido .day{color:var(--red)}
+.chrono-date.s-proximo{background:var(--amber-bg)} .chrono-date.s-proximo .day{color:var(--amber)}
+.chrono-date.s-futuro .day{color:var(--text2)}
+.chrono-date.s-evento{background:linear-gradient(135deg,rgba(139,63,255,.3),rgba(0,230,246,.2))} .chrono-date.s-evento .day{color:var(--cyan)}
+.chrono-body{flex:1;padding:13px 18px;min-width:0}
+.chrono-cat{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--purple2);margin-bottom:3px}
+.chrono-detail{font-size:15px;font-weight:500;color:var(--text);line-height:1.35}
+.chrono-comment{font-size:13px;color:var(--text2);margin-top:6px;padding:7px 11px;background:var(--bg2);border-radius:7px;border-left:2px solid var(--border2)}
+.chrono-badge{flex:0 0 auto;align-self:center;margin-right:16px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:20px;white-space:nowrap}
+.b-vencido{background:var(--red-bg);color:var(--red)} .b-proximo{background:var(--amber-bg);color:var(--amber)}
+.b-futuro{background:var(--bg3);color:var(--dim)} .b-evento{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
+.no-date{flex:0 0 92px;padding:14px 12px;text-align:center;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;background:var(--bg3);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+ 
+/* CATEGORY VIEW */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:border-color .15s,transform .15s}
+.cat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.cat-card.status-vencido{border-left:3px solid var(--red)}
+.cat-card.status-proximo{border-left:3px solid var(--amber)}
+.cat-card.status-futuro{border-left:3px solid var(--border2)}
+.cat-card.is-event{border-left:3px solid var(--cyan)}
+.cat-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.cat-name{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.15}
+.cat-badge{flex:0 0 auto;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:14px;white-space:nowrap}
+.cat-badge.vencido{background:var(--red-bg);color:var(--red)} .cat-badge.proximo{background:var(--amber-bg);color:var(--amber)}
+.cat-badge.futuro{background:var(--bg3);color:var(--dim)} .cat-badge.evento{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
+.cat-main-detalle{font-size:14px;color:var(--text2);line-height:1.4;margin-bottom:8px}
+.cat-deadline{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;color:var(--cyan);margin-bottom:12px}
+.subitems-toggle{font-size:13px;color:var(--purple2);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;padding-top:10px;border-top:1px solid var(--border)}
+.subitems-toggle .arrow{transition:transform .2s;font-size:10px}
+.subitems-toggle.open .arrow{transform:rotate(90deg)}
+.subitems{display:none;flex-direction:column;gap:6px;margin-top:10px}
+.subitems.open{display:flex}
+.subitem{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;background:var(--bg2);border-radius:8px;border-left:2px solid var(--border2)}
+.subitem.s-vencido{border-left-color:var(--red)} .subitem.s-proximo{border-left-color:var(--amber)} .subitem.s-evento{border-left-color:var(--cyan)}
+.si-text{font-size:13px;color:var(--text);line-height:1.35}
+.subitem-comment{font-size:12px;color:var(--dim);margin-top:4px}
+.si-date{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12px;color:var(--text2);white-space:nowrap;flex:0 0 auto}
+ 
+.hidden{display:none!important}
+.empty-msg{text-align:center;padding:50px 20px;color:var(--dim);font-size:15px}
+ 
+/* LOADING / ERROR */
+.screen{max-width:600px;margin:80px auto;text-align:center;padding:40px 20px}
+.spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+.screen h3{font-family:'Rajdhani',sans-serif;font-size:22px;margin-bottom:10px}
+.screen p{color:var(--text2);font-size:14px;line-height:1.5}
+.err-icon{font-size:40px;margin-bottom:16px}
+ 
+.footer{max-width:1400px;margin:0 auto;padding:30px 5vw;border-top:1px solid var(--border);text-align:center;color:var(--dim);font-size:12px}
+.footer a{color:var(--purple2);text-decoration:none}
+ 
+@media(max-width:640px){
+  .header-inner{flex-direction:column;align-items:flex-start}
+  .countdown{width:100%}
+  .chrono-badge{display:none}
+  .chrono-date,.no-date{flex:0 0 70px}
+}
+</style>
+</head>
+<body>
+ 
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-logo">EXPOGAME 2026</span>
+      <span class="brand-sub">Hitos & Cronograma</span>
+    </div>
+    <div class="sync">
+      <div class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncText">Conectando...</span></div>
+      <button class="refresh-btn" id="refreshBtn">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="1,4 3,2 5,4"/><path d="M3 2v5a5 5 0 0 0 10 0V5"/></svg>
+        Actualizar
+      </button>
+    </div>
+  </div>
+</div>
+ 
+<div id="loadingScreen" class="screen">
+  <div class="spinner"></div>
+  <h3>Conectando con la hoja de cálculo</h3>
+  <p>Cargando los hitos del evento...</p>
+</div>
+ 
+<div id="errorScreen" class="screen" style="display:none">
+  <div class="err-icon">⚠️</div>
+  <h3>No se pudo conectar</h3>
+  <p id="errorDetail"></p>
+</div>
+ 
+<div id="dashboardContent" style="display:none">
+  <div class="hero">
+    <div class="countdown">
+      <div class="countdown-num" id="countdownNum">—</div>
+      <div class="countdown-label">días para el evento</div>
+      <div class="countdown-date">2–4 Octubre 2026</div>
+    </div>
+    <div class="stats-strip" id="statsStrip"></div>
+  </div>
+ 
+  <div class="controls">
+    <div class="view-toggle">
+      <button class="view-btn active" data-view="chrono">Por fecha</button>
+      <button class="view-btn" data-view="category">Por categoría</button>
+    </div>
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="5"/><path d="m11 11 3 3" stroke-linecap="round"/></svg>
+      <input type="text" id="search" placeholder="Buscar hito, categoría o comentario...">
+    </div>
+    <div class="filter-chips">
+      <div class="chip active" data-filter="all">Todos</div>
+      <div class="chip" data-filter="vencido">Vencidos</div>
+      <div class="chip" data-filter="proximo">Próx. 30 días</div>
+      <div class="chip" data-filter="futuro">Futuros</div>
+    </div>
+  </div>
+ 
+  <div class="main">
+    <div id="chronoView"></div>
+    <div id="categoryView" style="display:none"></div>
+  </div>
+ 
+  <div class="footer">
+    Datos en vivo desde Google Sheets · Última actualización: <span id="lastUpdate">—</span> · Se actualiza solo cada 15 min
+  </div>
+</div>
+ 
+<script>
+/* ============================================================
+   CONFIGURACIÓN
+   ============================================================ */
+const SHEET_ID = "14TCIar5broLs2D1YA3-JqG7Hrky03xgx4b2Lfxe2pnE";
+const SHEET_NAME = "Hitos";
+const AUTO_REFRESH_MINUTES = 15;
+/* ============================================================ */
+ 
+const MESES = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const MESES_CORTO = ["","Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+const EVENT_DATE = new Date("2026-10-02T00:00:00");
+ 
+let CATEGORIES = [];
+let activeFilter = 'all';
+let activeView = 'chrono';
+ 
+function buildGvizUrl(){
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+}
+ 
+function parseGvizDate(cellValue){
+  if(typeof cellValue === 'string' && cellValue.startsWith('Date(')){
+    const parts = cellValue.replace('Date(','').replace(')','').split(',').map(Number);
+    return `${parts[0]}-${String(parts[1]+1).padStart(2,'0')}-${String(parts[2]).padStart(2,'0')}`;
+  }
+  // Fechas escritas como texto DD/MM/YYYY o D/M/YYYY
+  if(typeof cellValue === 'string'){
+    const m = cellValue.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m){
+      return `${m[3]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[1])).padStart(2,'0')}`;
+    }
+  }
+  return cellValue;
+}
+ 
+function dateParts(str){
+  if(!str) return null;
+  const m = String(str).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return null;
+  return {y:parseInt(m[1]), mo:parseInt(m[2]), d:parseInt(m[3])};
+}
+ 
+function fmtDate(str){
+  const p = dateParts(str);
+  if(p) return `${p.d} ${MESES_CORTO[p.mo]} ${p.y}`;
+  return str || "Sin fecha";
+}
+ 
+function getStatus(deadlineStr, today){
+  const p = dateParts(deadlineStr);
+  if(!p) return "futuro";
+  const d = new Date(`${p.y}-${String(p.mo).padStart(2,'0')}-${String(p.d).padStart(2,'0')}T00:00:00`);
+  // Marca el evento mismo (2-4 oct) como hito clave
+  if(p.y===2026 && p.mo===10 && p.d>=2 && p.d<=4) return "evento";
+  const diffDays = (d - today) / 86400000;
+  if(diffDays < 0) return "vencido";
+  if(diffDays <= 30) return "proximo";
+  return "futuro";
+}
+ 
+function parseRowsToCategories(rows){
+  const categories = [];
+  let current = null;
+  rows.forEach(row => {
+    const hito = row.c[1] ? row.c[1].v : null;
+    const detalle = row.c[2] ? row.c[2].v : null;
+    const deadlineRaw = row.c[3] ? row.c[3].v : null;
+    const comentario = row.c[4] ? row.c[4].v : null;
+    if(hito && /INCORPORAR COLUMNA|^HITO$/i.test(String(hito).trim())) return;
+    if(detalle && /^DETALLE$/i.test(String(detalle).trim())) return;
+ 
+    if(hito && String(hito).trim() !== ""){
+      current = { name: String(hito).trim(), items: [] };
+      categories.push(current);
+      if(detalle){
+        current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), comentario:comentario?String(comentario).trim():null, is_main:true });
+      }
+    } else if(detalle && current){
+      current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), comentario:comentario?String(comentario).trim():null, is_main:false });
+    }
+  });
+  return categories.filter(c => c.items.length > 0);
+}
+ 
+async function fetchSheetData(){
+  const res = await fetch(buildGvizUrl());
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+  const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}')+1));
+  if(json.status === 'error') throw new Error((json.errors&&json.errors[0]&&json.errors[0].detailed_message)||'Error leyendo la hoja');
+  return json.table.rows;
+}
+ 
+/* ---------- VISTA POR FECHA (cronológica) ---------- */
+function renderChrono(){
+  const TODAY = new Date();
+  const term = document.getElementById('search').value.trim().toLowerCase();
+ 
+  // Aplanar todos los hitos con fecha
+  const allItems = [];
+  CATEGORIES.forEach(cat=>{
+    cat.items.forEach(it=>{
+      allItems.push({ cat:cat.name, detalle:it.detalle.replace(/^MAIN:\s*/i,''), deadline:it.deadline_str, comentario:it.comentario, status:getStatus(it.deadline_str,TODAY) });
+    });
+  });
+ 
+  // Filtrar
+  const filtered = allItems.filter(it=>{
+    const matchStatus = activeFilter==='all' || it.status===activeFilter || (activeFilter==='futuro'&&it.status==='evento');
+    const matchSearch = !term || (it.cat+' '+it.detalle+' '+(it.comentario||'')).toLowerCase().includes(term);
+    return matchStatus && matchSearch;
+  });
+ 
+  // Separar con fecha y sin fecha
+  const withDate = filtered.filter(it=>dateParts(it.deadline)).sort((a,b)=> a.deadline.localeCompare(b.deadline));
+  const noDate = filtered.filter(it=>!dateParts(it.deadline));
+ 
+  // Agrupar por mes
+  const buckets = {}; const order = [];
+  withDate.forEach(it=>{
+    const p = dateParts(it.deadline);
+    const key = `${p.y}-${String(p.mo).padStart(2,'0')}`;
+    if(!buckets[key]){buckets[key]=[];order.push(key);}
+    buckets[key].push(it);
+  });
+ 
+  const CURRENT_KEY = `${TODAY.getFullYear()}-${String(TODAY.getMonth()+1).padStart(2,'0')}`;
+  const el = document.getElementById('chronoView');
+ 
+  if(filtered.length===0){ el.innerHTML='<div class="empty-msg">No hay hitos que coincidan con el filtro o búsqueda.</div>'; return; }
+ 
+  let html = '';
+  order.forEach(key=>{
+    const [y,mo] = key.split('-').map(Number);
+    const items = buckets[key];
+    html += `<div class="chrono-month">
+      <div class="chrono-month-head ${key===CURRENT_KEY?'is-current':''}">
+        <h2>${MESES[mo]} ${y}</h2>
+        <span class="pill">${items.length} hito${items.length!==1?'s':''}</span>
+        <div class="line"></div>
+      </div>`;
+    items.forEach(it=>{
+      const p = dateParts(it.deadline);
+      const label = {vencido:'Vencido',proximo:'Próximo',futuro:'Futuro',evento:'Evento'}[it.status];
+      html += `<div class="chrono-row">
+        <div class="chrono-date s-${it.status}">
+          <div class="day">${p.d}</div>
+          <div class="mon">${MESES_CORTO[p.mo]}</div>
+        </div>
+        <div class="chrono-body">
+          <div class="chrono-cat">${it.cat}</div>
+          <div class="chrono-detail">${it.detalle}</div>
+          ${it.comentario?`<div class="chrono-comment">${it.comentario}</div>`:''}
+        </div>
+        <div class="chrono-badge b-${it.status}">${label}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+ 
+  // Sin fecha al final
+  if(noDate.length>0){
+    html += `<div class="chrono-month">
+      <div class="chrono-month-head"><h2>Sin fecha asignada</h2><span class="pill">${noDate.length}</span><div class="line"></div></div>`;
+    noDate.forEach(it=>{
+      html += `<div class="chrono-row">
+        <div class="no-date">s/f</div>
+        <div class="chrono-body"><div class="chrono-cat">${it.cat}</div><div class="chrono-detail">${it.detalle}</div>
+        ${it.comentario?`<div class="chrono-comment">${it.comentario}</div>`:''}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  el.innerHTML = html;
+}
+ 
+/* ---------- VISTA POR CATEGORÍA ---------- */
+function renderCategory(){
+  const TODAY = new Date();
+  const term = document.getElementById('search').value.trim().toLowerCase();
+  const el = document.getElementById('categoryView');
+ 
+  const cards = CATEGORIES.map(cat=>{
+    const mainItem = cat.items.find(i=>i.is_main)||cat.items[0];
+    const status = getStatus(mainItem.deadline_str,TODAY);
+    const matchStatus = activeFilter==='all'||status===activeFilter||(activeFilter==='futuro'&&status==='evento');
+    const searchText = (cat.name+' '+cat.items.map(i=>i.detalle+' '+(i.comentario||'')).join(' ')).toLowerCase();
+    const matchSearch = !term || searchText.includes(term);
+    if(!matchStatus||!matchSearch) return '';
+ 
+    const label = {vencido:'Vencido',proximo:'Próximo',futuro:'Futuro',evento:'Hito clave'}[status];
+    const totalSub = cat.items.length;
+    const subHTML = cat.items.map(it=>{
+      const s = getStatus(it.deadline_str,TODAY);
+      return `<div class="subitem s-${s}">
+        <div class="si-text">${it.detalle.replace(/^MAIN:\s*/i,'')}${it.comentario?`<div class="subitem-comment">💬 ${it.comentario}</div>`:''}</div>
+        <div class="si-date">${fmtDate(it.deadline_str)}</div></div>`;
+    }).join('');
+ 
+    return `<div class="cat-card status-${status}${status==='evento'?' is-event':''}">
+      <div class="cat-top"><div class="cat-name">${cat.name}</div><div class="cat-badge ${status}">${label}</div></div>
+      <div class="cat-main-detalle">${mainItem.detalle.replace(/^MAIN:\s*/i,'')}</div>
+      <div class="cat-deadline">${fmtDate(mainItem.deadline_str)}</div>
+      ${totalSub>1?`<div class="subitems-toggle"><span class="arrow">▶</span> Ver ${totalSub} hitos</div><div class="subitems">${subHTML}</div>`:''}
+    </div>`;
+  }).filter(Boolean).join('');
+ 
+  el.innerHTML = cards ? `<div class="cat-grid">${cards}</div>` : '<div class="empty-msg">No hay categorías que coincidan.</div>';
+ 
+  el.querySelectorAll('.subitems-toggle').forEach(t=>{
+    t.onclick = ()=>{ t.classList.toggle('open'); t.nextElementSibling.classList.toggle('open'); };
+  });
+}
+ 
+function renderActiveView(){
+  if(activeView==='chrono'){ document.getElementById('chronoView').style.display='block'; document.getElementById('categoryView').style.display='none'; renderChrono(); }
+  else { document.getElementById('chronoView').style.display='none'; document.getElementById('categoryView').style.display='block'; renderCategory(); }
+}
+ 
+function renderStats(){
+  const TODAY = new Date();
+  let total=0,vencidos=0,proximos=0,futuros=0;
+  CATEGORIES.forEach(cat=>cat.items.forEach(it=>{
+    total++;
+    const s=getStatus(it.deadline_str,TODAY);
+    if(s==='vencido')vencidos++; else if(s==='proximo')proximos++; else if(s==='futuro')futuros++;
+  }));
+  document.getElementById('statsStrip').innerHTML =
+    `<div class="stat total"><div class="v">${CATEGORIES.length}</div><div class="l">Categorías</div></div>
+     <div class="stat total"><div class="v">${total}</div><div class="l">Hitos totales</div></div>
+     <div class="stat bad" data-jump="vencido"><div class="v">${vencidos}</div><div class="l">Vencidos</div></div>
+     <div class="stat warn" data-jump="proximo"><div class="v">${proximos}</div><div class="l">Próx. 30 días</div></div>
+     <div class="stat ok"><div class="v">${futuros}</div><div class="l">Futuros</div></div>`;
+  // Stats clicables saltan al filtro
+  document.querySelectorAll('.stat[data-jump]').forEach(s=>{
+    s.onclick = ()=>{ const f=s.dataset.jump; document.querySelector(`.chip[data-filter="${f}"]`).click(); window.scrollTo({top:document.querySelector('.controls').offsetTop-70,behavior:'smooth'}); };
+  });
+  const diffDays = Math.max(0, Math.ceil((EVENT_DATE - TODAY)/86400000));
+  document.getElementById('countdownNum').textContent = diffDays;
+}
+ 
+function setupControls(){
+  document.querySelectorAll('.view-btn').forEach(btn=>{
+    btn.onclick = ()=>{ document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); activeView=btn.dataset.view; renderActiveView(); };
+  });
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = ()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); activeFilter=chip.dataset.filter; renderActiveView(); };
+  });
+  document.getElementById('search').oninput = renderActiveView;
+}
+ 
+let refreshTimer=null;
+async function loadData(isAuto){
+  const syncDot=document.getElementById('syncDot'), syncText=document.getElementById('syncText'), btn=document.getElementById('refreshBtn');
+  syncDot.className='sync-dot loading'; syncText.textContent=isAuto?'Actualizando...':'Conectando...'; btn.disabled=true;
+  try{
+    const rows = await fetchSheetData();
+    CATEGORIES = parseRowsToCategories(rows);
+    if(CATEGORIES.length===0) throw new Error('La hoja se leyó pero no se encontraron hitos. Revisa el formato de columnas (B=Hito, C=Detalle, D=Deadline, E=Comentarios).');
+    renderStats(); renderActiveView();
+    document.getElementById('loadingScreen').style.display='none';
+    document.getElementById('errorScreen').style.display='none';
+    document.getElementById('dashboardContent').style.display='block';
+    syncDot.className='sync-dot';
+    syncText.textContent='Conectado · '+CATEGORIES.length+' categorías';
+    document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+  }catch(err){
+    console.error(err);
+    syncDot.className='sync-dot error'; syncText.textContent='Error';
+    document.getElementById('errorDetail').textContent=err.message+'. Verifica que la hoja esté compartida como "Cualquiera con el enlace → Lector".';
+    if(!isAuto||document.getElementById('dashboardContent').style.display==='none'){
+      document.getElementById('loadingScreen').style.display='none';
+      document.getElementById('errorScreen').style.display='block';
+    }
+  }finally{ btn.disabled=false; }
+}
+ 
+document.getElementById('refreshBtn').onclick = ()=>loadData(false);
+setupControls();
+loadData(false);
+refreshTimer = setInterval(()=>loadData(true), AUTO_REFRESH_MINUTES*60*1000);
+</script>
+</body>
+</html>
