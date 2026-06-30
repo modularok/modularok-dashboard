@@ -49,9 +49,9 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;justify-content:center}
 .stat .v{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;line-height:1}
 .stat .l{font-size:12px;color:var(--dim);margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
-.stat.total .v{color:var(--text)} .stat.bad .v{color:var(--red)} .stat.warn .v{color:var(--amber)} .stat.ok .v{color:var(--green)}
-.stat.bad{cursor:pointer} .stat.warn{cursor:pointer}
-.stat.bad:hover,.stat.warn:hover{border-color:var(--border2)}
+.stat.total .v{color:var(--text)} .stat.bad .v{color:var(--red)} .stat.warn .v{color:var(--amber)} .stat.ok .v{color:var(--green)} .stat.amber2 .v{color:var(--amber)}
+.stat.bad{cursor:pointer} .stat.warn{cursor:pointer} .stat.amber2{cursor:pointer}
+.stat.bad:hover,.stat.warn:hover,.stat.amber2:hover{border-color:var(--border2)}
  
 /* CONTROLS */
 .controls{max-width:1400px;margin:0 auto;padding:26px 5vw 0;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
@@ -66,7 +66,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .chip{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;letter-spacing:.03em;text-transform:uppercase;background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:8px 15px;border-radius:8px;cursor:pointer;transition:all .15s}
 .chip:hover{border-color:var(--border2)}
 .chip.active{background:var(--purple);border-color:var(--purple);color:#fff}
-.chip.active[data-filter="vencido"]{background:var(--red);border-color:var(--red)}
+.chip.active[data-filter="pendiente"]{background:var(--amber);border-color:var(--amber);color:#1a1a1a}
+.chip.active[data-filter="concretado"]{background:var(--green);border-color:var(--green);color:#0a1f16}
 .chip.active[data-filter="proximo"]{background:var(--amber);border-color:var(--amber);color:#1a1a1a}
  
 /* MAIN */
@@ -84,7 +85,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .chrono-date{flex:0 0 92px;padding:14px 12px;text-align:center;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg3)}
 .chrono-date .day{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1}
 .chrono-date .mon{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-top:2px}
-.chrono-date.s-vencido{background:var(--red-bg)} .chrono-date.s-vencido .day{color:var(--red)}
+.chrono-date.s-pendiente{background:var(--amber-bg)} .chrono-date.s-pendiente .day{color:var(--amber)}
+.chrono-date.s-concretado{background:var(--green-bg)} .chrono-date.s-concretado .day{color:var(--green)}
 .chrono-date.s-proximo{background:var(--amber-bg)} .chrono-date.s-proximo .day{color:var(--amber)}
 .chrono-date.s-futuro .day{color:var(--text2)}
 .chrono-date.s-evento{background:linear-gradient(135deg,rgba(139,63,255,.3),rgba(0,230,246,.2))} .chrono-date.s-evento .day{color:var(--cyan)}
@@ -93,7 +95,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .chrono-detail{font-size:15px;font-weight:500;color:var(--text);line-height:1.35}
 .chrono-comment{font-size:13px;color:var(--text2);margin-top:6px;padding:7px 11px;background:var(--bg2);border-radius:7px;border-left:2px solid var(--border2)}
 .chrono-badge{flex:0 0 auto;align-self:center;margin-right:16px;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:20px;white-space:nowrap}
-.b-vencido{background:var(--red-bg);color:var(--red)} .b-proximo{background:var(--amber-bg);color:var(--amber)}
+.b-pendiente{background:var(--amber-bg);color:var(--amber)} .b-proximo{background:var(--amber-bg);color:var(--amber)}
+.b-concretado{background:var(--green-bg);color:var(--green)}
 .b-futuro{background:var(--bg3);color:var(--dim)} .b-evento{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
 .no-date{flex:0 0 92px;padding:14px 12px;text-align:center;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;background:var(--bg3);font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
  
@@ -101,14 +104,16 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:border-color .15s,transform .15s}
 .cat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
-.cat-card.status-vencido{border-left:3px solid var(--red)}
+.cat-card.status-pendiente{border-left:3px solid var(--amber)}
+.cat-card.status-concretado{border-left:3px solid var(--green)}
 .cat-card.status-proximo{border-left:3px solid var(--amber)}
 .cat-card.status-futuro{border-left:3px solid var(--border2)}
 .cat-card.is-event{border-left:3px solid var(--cyan)}
 .cat-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
 .cat-name{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.15}
 .cat-badge{flex:0 0 auto;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:14px;white-space:nowrap}
-.cat-badge.vencido{background:var(--red-bg);color:var(--red)} .cat-badge.proximo{background:var(--amber-bg);color:var(--amber)}
+.cat-badge.pendiente{background:var(--amber-bg);color:var(--amber)} .cat-badge.proximo{background:var(--amber-bg);color:var(--amber)}
+.cat-badge.concretado{background:var(--green-bg);color:var(--green)}
 .cat-badge.futuro{background:var(--bg3);color:var(--dim)} .cat-badge.evento{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
 .cat-main-detalle{font-size:14px;color:var(--text2);line-height:1.4;margin-bottom:8px}
 .cat-deadline{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;color:var(--cyan);margin-bottom:12px}
@@ -118,7 +123,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .subitems{display:none;flex-direction:column;gap:6px;margin-top:10px}
 .subitems.open{display:flex}
 .subitem{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;background:var(--bg2);border-radius:8px;border-left:2px solid var(--border2)}
-.subitem.s-vencido{border-left-color:var(--red)} .subitem.s-proximo{border-left-color:var(--amber)} .subitem.s-evento{border-left-color:var(--cyan)}
+.subitem.s-pendiente{border-left-color:var(--amber)} .subitem.s-concretado{border-left-color:var(--green)} .subitem.s-proximo{border-left-color:var(--amber)} .subitem.s-evento{border-left-color:var(--cyan)}
 .si-text{font-size:13px;color:var(--text);line-height:1.35}
 .subitem-comment{font-size:12px;color:var(--dim);margin-top:4px}
 .si-date{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12px;color:var(--text2);white-space:nowrap;flex:0 0 auto}
@@ -195,7 +200,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
     <div class="filter-chips">
       <div class="chip active" data-filter="all">Todos</div>
-      <div class="chip" data-filter="vencido">Vencidos</div>
+      <div class="chip" data-filter="concretado">Concretados</div>
+      <div class="chip" data-filter="pendiente">Pendientes</div>
       <div class="chip" data-filter="proximo">Próx. 30 días</div>
       <div class="chip" data-filter="futuro">Futuros</div>
     </div>
@@ -260,14 +266,26 @@ function fmtDate(str){
   return str || "Sin fecha";
 }
  
-function getStatus(deadlineStr, today){
+function getStatus(deadlineStr, today, estatus){
+  // Si está marcado como concretado en la hoja, prevalece
+  if(estatus && /concretad/i.test(estatus)) return "concretado";
+ 
   const p = dateParts(deadlineStr);
-  if(!p) return "futuro";
+  if(!p){
+    // sin fecha: si está pendiente lo marcamos pendiente, si no, futuro
+    if(estatus && /pendiente/i.test(estatus)) return "pendiente";
+    return "futuro";
+  }
   const d = new Date(`${p.y}-${String(p.mo).padStart(2,'0')}-${String(p.d).padStart(2,'0')}T00:00:00`);
   // Marca el evento mismo (2-4 oct) como hito clave
   if(p.y===2026 && p.mo===10 && p.d>=2 && p.d<=4) return "evento";
   const diffDays = (d - today) / 86400000;
-  if(diffDays < 0) return "vencido";
+  if(diffDays < 0){
+    // Fecha pasada: si está pendiente lo decimos como pendiente, no "vencido"
+    if(estatus && /pendiente/i.test(estatus)) return "pendiente";
+    // Si pasó y no tiene estatus, lo dejamos como pendiente igual (más amable que "vencido")
+    return "pendiente";
+  }
   if(diffDays <= 30) return "proximo";
   return "futuro";
 }
@@ -279,7 +297,8 @@ function parseRowsToCategories(rows){
     const hito = row.c[1] ? row.c[1].v : null;
     const detalle = row.c[2] ? row.c[2].v : null;
     const deadlineRaw = row.c[3] ? row.c[3].v : null;
-    const comentario = row.c[4] ? row.c[4].v : null;
+    const estatus = row.c[4] ? row.c[4].v : null;
+    const comentario = row.c[5] ? row.c[5].v : null;
     if(hito && /INCORPORAR COLUMNA|^HITO$/i.test(String(hito).trim())) return;
     if(detalle && /^DETALLE$/i.test(String(detalle).trim())) return;
  
@@ -287,10 +306,10 @@ function parseRowsToCategories(rows){
       current = { name: String(hito).trim(), items: [] };
       categories.push(current);
       if(detalle){
-        current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), comentario:comentario?String(comentario).trim():null, is_main:true });
+        current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), estatus:estatus?String(estatus).trim():null, comentario:comentario?String(comentario).trim():null, is_main:true });
       }
     } else if(detalle && current){
-      current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), comentario:comentario?String(comentario).trim():null, is_main:false });
+      current.items.push({ detalle:String(detalle).trim(), deadline_str:parseGvizDate(deadlineRaw), estatus:estatus?String(estatus).trim():null, comentario:comentario?String(comentario).trim():null, is_main:false });
     }
   });
   return categories.filter(c => c.items.length > 0);
@@ -314,7 +333,7 @@ function renderChrono(){
   const allItems = [];
   CATEGORIES.forEach(cat=>{
     cat.items.forEach(it=>{
-      allItems.push({ cat:cat.name, detalle:it.detalle.replace(/^MAIN:\s*/i,''), deadline:it.deadline_str, comentario:it.comentario, status:getStatus(it.deadline_str,TODAY) });
+      allItems.push({ cat:cat.name, detalle:it.detalle.replace(/^MAIN:\s*/i,''), deadline:it.deadline_str, comentario:it.comentario, status:getStatus(it.deadline_str,TODAY,it.estatus) });
     });
   });
  
@@ -355,7 +374,7 @@ function renderChrono(){
       </div>`;
     items.forEach(it=>{
       const p = dateParts(it.deadline);
-      const label = {vencido:'Vencido',proximo:'Próximo',futuro:'Futuro',evento:'Evento'}[it.status];
+      const label = {pendiente:'Pendiente',proximo:'Próximo',futuro:'Futuro',evento:'Evento',concretado:'Concretado'}[it.status];
       html += `<div class="chrono-row">
         <div class="chrono-date s-${it.status}">
           <div class="day">${p.d}</div>
@@ -396,16 +415,16 @@ function renderCategory(){
  
   const cards = CATEGORIES.map(cat=>{
     const mainItem = cat.items.find(i=>i.is_main)||cat.items[0];
-    const status = getStatus(mainItem.deadline_str,TODAY);
+    const status = getStatus(mainItem.deadline_str,TODAY,mainItem.estatus);
     const matchStatus = activeFilter==='all'||status===activeFilter||(activeFilter==='futuro'&&status==='evento');
     const searchText = (cat.name+' '+cat.items.map(i=>i.detalle+' '+(i.comentario||'')).join(' ')).toLowerCase();
     const matchSearch = !term || searchText.includes(term);
     if(!matchStatus||!matchSearch) return '';
  
-    const label = {vencido:'Vencido',proximo:'Próximo',futuro:'Futuro',evento:'Hito clave'}[status];
+    const label = {pendiente:'Pendiente',proximo:'Próximo',futuro:'Futuro',evento:'Hito clave',concretado:'Concretado'}[status];
     const totalSub = cat.items.length;
     const subHTML = cat.items.map(it=>{
-      const s = getStatus(it.deadline_str,TODAY);
+      const s = getStatus(it.deadline_str,TODAY,it.estatus);
       return `<div class="subitem s-${s}">
         <div class="si-text">${it.detalle.replace(/^MAIN:\s*/i,'')}${it.comentario?`<div class="subitem-comment">💬 ${it.comentario}</div>`:''}</div>
         <div class="si-date">${fmtDate(it.deadline_str)}</div></div>`;
@@ -433,18 +452,18 @@ function renderActiveView(){
  
 function renderStats(){
   const TODAY = new Date();
-  let total=0,vencidos=0,proximos=0,futuros=0;
+  let total=0,concretados=0,pendientes=0,proximos=0,futuros=0;
   CATEGORIES.forEach(cat=>cat.items.forEach(it=>{
     total++;
-    const s=getStatus(it.deadline_str,TODAY);
-    if(s==='vencido')vencidos++; else if(s==='proximo')proximos++; else if(s==='futuro')futuros++;
+    const s=getStatus(it.deadline_str,TODAY,it.estatus);
+    if(s==='concretado')concretados++; else if(s==='pendiente')pendientes++; else if(s==='proximo')proximos++; else if(s==='futuro')futuros++;
   }));
   document.getElementById('statsStrip').innerHTML =
     `<div class="stat total"><div class="v">${CATEGORIES.length}</div><div class="l">Categorías</div></div>
-     <div class="stat total"><div class="v">${total}</div><div class="l">Hitos totales</div></div>
-     <div class="stat bad" data-jump="vencido"><div class="v">${vencidos}</div><div class="l">Vencidos</div></div>
-     <div class="stat warn" data-jump="proximo"><div class="v">${proximos}</div><div class="l">Próx. 30 días</div></div>
-     <div class="stat ok"><div class="v">${futuros}</div><div class="l">Futuros</div></div>`;
+     <div class="stat ok"><div class="v">${concretados}</div><div class="l">Concretados</div></div>
+     <div class="stat warn" data-jump="pendiente"><div class="v">${pendientes}</div><div class="l">Pendientes</div></div>
+     <div class="stat amber2" data-jump="proximo"><div class="v">${proximos}</div><div class="l">Próx. 30 días</div></div>
+     <div class="stat total"><div class="v">${futuros}</div><div class="l">Futuros</div></div>`;
   // Stats clicables saltan al filtro
   document.querySelectorAll('.stat[data-jump]').forEach(s=>{
     s.onclick = ()=>{ const f=s.dataset.jump; document.querySelector(`.chip[data-filter="${f}"]`).click(); window.scrollTo({top:document.querySelector('.controls').offsetTop-70,behavior:'smooth'}); };
